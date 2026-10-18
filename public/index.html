@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="utf-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1" />
+  <title>Quote → Google Sheet</title>
+  <style>
+    :root { --orange: #F6821F; --orange-soft: #FDE8D4; --ink: #1d1d1d; --muted: #6b7280; --border: #d4d4d8; }
+    * { box-sizing: border-box; }
+    body { font-family: ui-sans-serif, system-ui, -apple-system, "Segoe UI", Roboto, sans-serif; margin: 0; background: #fafafa; color: var(--ink); }
+    .wrap { max-width: 880px; margin: 0 auto; padding: 20px 16px 40px; }
+    h1 { font-size: 20px; margin: 6px 0 4px; }
+    h1 .arrow { color: var(--orange); font-weight: 700; }
+    .sub { color: var(--muted); font-size: 13px; margin-bottom: 18px; }
+    .card { background: #fff; border: 1px solid #e7e7e7; border-radius: 14px; padding: 16px; margin-bottom: 14px; box-shadow: 0 1px 2px rgba(0,0,0,.04); }
+    .card h2 { font-size: 13px; text-transform: uppercase; letter-spacing: .08em; color: var(--orange); margin: 0 0 12px; }
+    .row { display: flex; flex-wrap: wrap; gap: 8px; align-items: center; }
+    input[type="text"], select, textarea { border: 1px solid var(--border); border-radius: 8px; padding: 9px 12px; font-size: 14px; font-family: inherit; background: #fff; color: var(--ink); }
+    input[type="text"]:focus, select:focus, textarea:focus { outline: 2px solid var(--orange-soft); border-color: var(--orange); }
+    button { border: 1px solid var(--border); background: #fff; border-radius: 8px; padding: 9px 14px; font-size: 14px; cursor: pointer; font-family: inherit; }
+    button:hover { border-color: var(--orange); color: var(--orange); }
+    button.primary { background: var(--orange); border-color: var(--orange); color: #fff; font-weight: 600; }
+    button.primary:hover { opacity: .92; color: #fff; }
+    button:disabled { opacity: .5; cursor: default; }
+    .grow { flex: 1 1 200px; }
+    .field { display: flex; flex-direction: column; gap: 6px; margin-bottom: 12px; }
+    .field > label { font-size: 12px; color: var(--muted); }
+    .suggest { position: relative; }
+    .suggest .list { position: absolute; top: calc(100% + 4px); left: 0; right: 0; background: #fff; border: 1px solid var(--border); border-radius: 10px; max-height: 260px; overflow: auto; z-index: 20; box-shadow: 0 10px 26px rgba(0,0,0,.09); display: none; }
+    .suggest .list.open { display: block; }
+    .suggest .item { padding: 10px 12px; cursor: pointer; border-bottom: 1px solid #f1f1f1; }
+    .suggest .item:hover { background: var(--orange-soft); }
+    .suggest .item .n { font-size: 14px; font-weight: 500; }
+    .suggest .item .m { font-size: 12px; color: var(--muted); }
+    .banner { border: 1px solid #bbf7d0; background: #f0fdf4; color: #166534; padding: 10px 12px; border-radius: 10px; font-size: 13px; margin-bottom: 12px; }
+    .banner b { font-weight: 700; }
+    .banner.err { border-color: #fecaca; background: #fef2f2; color: #991b1b; }
+    .chip { display: inline-block; background: var(--orange-soft); border-radius: 999px; padding: 2px 10px; font-size: 12px; margin-right: 6px; }
+    .star { color: var(--orange); margin-right: 4px; }
+    table.grid { border-collapse: collapse; width: 100%; font-size: 13px; background: #fff; }
+    table.grid td { border: 1px solid #d4d4d8; padding: 6px 8px; text-align: left; }
+    table.grid tr.hdr td { background: var(--orange-soft); font-weight: 600; }
+    table.grid tr.bld td { font-weight: 700; }
+    .modebox { display: flex; gap: 14px; font-size: 14px; margin-bottom: 12px; }
+    .modebox label { display: flex; gap: 6px; align-items: center; cursor: pointer; }
+    .tail { font-size: 12px; color: var(--muted); margin-top: 8px; }
+    .hidden { display: none !important; }
+    a { color: var(--orange); }
+    .templ-row { display: flex; gap: 8px; align-items: center; margin-bottom: 10px; }
+    textarea.templ { width: 100%; min-height: 220px; font-family: ui-monospace, SFMono-Regular, Menlo, monospace; font-size: 12.5px; line-height: 1.45; }
+    .pill { display: inline-flex; align-items: center; gap: 6px; border: 1px solid var(--border); border-radius: 999px; padding: 4px 12px; font-size: 13px; background: #fff; cursor: pointer; }
+    .pill:hover { border-color: var(--orange); }
+    .connect-bar { display: flex; gap: 10px; flex-wrap: wrap; align-items: center; }
+    .status-dot { width: 10px; height: 10px; border-radius: 50%; display: inline-block; margin-right: 6px; }
+    .status-dot.ok { background: #22c55e; }
+    .status-dot.no { background: #9ca3af; }
+  </style>
+</head>
+<body>
+  <div class="wrap" id="app"></div>
+  <script src="/app.js"></script>
+</body>
+</html>
