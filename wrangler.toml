@@ -1,0 +1,23 @@
+name = "quote-to-sheet"
+main = "src/index.js"
+compatibility_date = "2025-01-01"
+
+# ── Auto-deploy with Cloudflare Workers Builds ──────────────────────────────
+# 1. Push commits to GitHub (this repo is connected to Workers Builds in your
+#    Cloudflare dashboard → Workers & Pages → quote-to-sheet → Connect to Git)
+# 2. Secrets (set once, stored encrypted — never commit them):
+#      wrangler secret put SF_CLIENT_ID
+#      wrangler secret put SF_CLIENT_SECRET
+#      wrangler secret put GOOGLE_CLIENT_ID
+#      wrangler secret put GOOGLE_CLIENT_SECRET
+#
+# Workers KV keeps OAuth sessions + saved templates + export settings.
+# Create it once:
+#     wrangler kv namespace create SESSIONS
+# then uncomment below and paste the printed id:
+# [[kv_namespaces]]
+# binding = "SESSIONS"
+# id = "__PASTE_KV_NAMESPACE_ID_HERE__"
+
+[assets]
+directory = "./public"
